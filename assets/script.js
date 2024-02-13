@@ -97,7 +97,7 @@ function passwordOptions() {
     return null;
   }
 
-  if (length < 8) {
+  if (passwordLength < 8) {
     alert('Password length has to be at least 8 characters.');
     return null;
   }
@@ -118,12 +118,67 @@ function passwordOptions() {
     'Do you want Upper Cased Characters in Password? Click OK for yes, or CANCEL for no.'
   );
 
+  var userOptions = {
+    passwordLength: passwordLength,
+    confirmSpecial: confirmSpecial,
+    confirmNumbers: confirmNumbers,
+    confirmLowerCase: confirmLowerCase,
+    confirmUpperCase: confirmUpperCase,
+  };
 
+  return userOptions;
+}
+
+function passwordRandom(arr) {
+  var randomList = Math.floor(Math.random() * arr.passwordLength);
+  var randomValue = arr[randomList];
+
+  return randomValue;
+}
+
+function passwordCreate() {
+  var options = passwordOptions();
+  var result = [];
+  var x = [];
+  var y = [];
+
+  if (!options) return null;
+
+  if (options.x) {
+    x = x.concat(special);
+    y.push(passwordRandom(special));
+  }
+
+  if (options.x) {
+    x = x.concat(numbers);
+    y.push(passwordRandom(numbers));
+  }
+
+  if (options.x) {
+    x = x.concat(lowerCase);
+    y.push(passwordRandom(lowerCase));
+  }
+
+  if (options.x) {
+    x = x.concat(upperCase);
+    y.push(passwordRandom(upperCase));
+  }
+
+  for (var i = 0; i < options.passwordLength; i++) {
+    var x = passwordRandom(x);
+    result.push(x);
+  }
+
+  for (var i = 0; i < y.passwordLength; i++) {
+    result[i] = y[i];
+  }
+
+  return result.join('');
 }
 
 
-
 // Starter Code Below
+
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
